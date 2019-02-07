@@ -1,0 +1,55 @@
+{
+  "questions": [
+    {
+      "active": true,
+      "answers": [
+        {
+          "text": "Answer 1",
+          "path": "go 1"
+        },
+        {
+          "text": "Answer 2",
+          "path": "go 2"
+        }
+      ],
+      "hasAnswer": false,
+      "order": 1,
+      "question": "This is question 1",
+      "userAnswer": "user's answer here"
+    },
+    {
+      "active": false,
+      "answers": [
+        {
+          "text": "X Answer 1",
+          "path": "go 1"
+        },
+        {
+          "text": "X Answer 2",
+          "path": "go 2"
+        }
+      ],
+      "hasAnswer": false,
+      "order": 2,
+      "question": "This is question 2",
+      "userAnswer": "next answer here"
+    },
+    {
+      "active": false,
+      "answers": [
+        {
+          "text": "XX Answer 1",
+          "path": "go 1"
+        },
+        {
+          "text": "XX Answer 2",
+          "path": "go 2"
+        }
+      ],
+      "hasAnswer": false,
+      "order": 3,
+      "question": "This is question 3",
+      "userAnswer": ""
+    }
+  ]
+}
