@@ -25,6 +25,7 @@ class Question extends Component {
     const {
       active,
       answers,
+      answerAndNext,
       index,
       openPrevious,
       text,
@@ -35,10 +36,13 @@ class Question extends Component {
         <H1 onClick={() => openPrevious(index)}>{text}</H1>
         <UserAnswer>{userAnswer}</UserAnswer>
         <AnswersWrapper active={active}>
-          {answers.map((d, i) => {
-            // make a new component for the answers
+          {answers.map((d, answerIndex) => {
+            // todo: make a new component for the answers
             return (
-              <div key={i}>
+              <div
+                onClick={() => answerAndNext(d, answerIndex, index)}
+                key={answerIndex}
+              >
                 <h2>{d.text}</h2>
               </div>
             );

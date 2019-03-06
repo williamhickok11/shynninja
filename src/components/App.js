@@ -2,8 +2,18 @@ import Question from "./question";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { questions } from "../data/questions.json";
+import styled from "styled-components";
 
 // import axios from "axios";
+
+const SubmitForm = styled.div`
+  border: 2px solid black;
+  justify-content: center;
+  margin: 20px auto 0;
+  max-width: 300px;
+  padding: 20px;
+  text-align: center;
+`;
 
 class App extends Component {
   static propTypes = {
@@ -11,27 +21,64 @@ class App extends Component {
   };
 
   state = {
-    questionData: [],
-    formAnswers: []
+    formFinished: false,
+    questionData: []
   };
 
   openPrevious = i => {
     if (this.state.questionData[i].userAnswer !== "") {
       let newState = this.state.questionData.map(item => {
-        item.active = false;
-        return item;
+        return { ...item, active: false };
       });
       newState[i].active = true;
-
       this.setState({
         questionData: newState
       });
     }
   };
 
-  answerAndNext = i => {
+  answerAndNext = (item, answerIndex, questionIndex) => {
+    let finished = true;
+    // hide all questions
+    let newState = this.state.questionData.map((item, i) => {
+      item.active = false;
+      // close submit button only if there isn't an answer
+      if (item.userAnswer === "") {
+        finished = false;
+      }
+      return item;
+    });
     // fill in answer
-    // hide and show questions
+    newState[questionIndex].userAnswer = item.value;
+    if (newState.length !== questionIndex + 1) {
+      // show nex questiopn
+      newState[questionIndex + 1].active = true;
+    } else {
+      // we are at the end, show submit button
+      finished = true;
+    }
+    this.setState({
+      formFinished: finished,
+      questionData: newState
+    });
+    console.log(this.state);
+  };
+
+  submitQuote = () => {
+    const quoteAnswers = this.state.questionData.map((item, i) => {
+      return item.userAnswer;
+    });
+    let message =
+      "This is a message that will auto populate in a users email before sending.\n";
+    message += "They can add to it if they want.\n";
+    message += "It will also include detais about their selections such as:\n";
+    message += `This is the answer to question 1:\n${quoteAnswers[0]}`;
+    message += `This is the answer to question 2:\n${quoteAnswers[1]}`;
+    message += `This is the answer to question 3:\n${quoteAnswers[2]}`;
+    message += "This is the quote that the app generated:";
+    window.open(
+      `mailto:SHYYNnashville@gmail.com?subject=Detail Request&body=${message}`
+    );
   };
 
   componentDidMount() {
@@ -60,6 +107,13 @@ class App extends Component {
             />
           );
         })}
+        <div>
+          {this.state.formFinished && (
+            <SubmitForm onClick={this.submitQuote}>
+              Get Instant Quote
+            </SubmitForm>
+          )}
+        </div>
       </div>
     ) : null;
   }
