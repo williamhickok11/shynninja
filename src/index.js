@@ -5,7 +5,7 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <App apiCall="data/questions.json" />,
+  <App />,
   document.getElementById("root")
 );
 

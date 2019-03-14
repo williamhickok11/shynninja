@@ -1,7 +1,10 @@
 import Question from "./question";
+import Quote from "./quote";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+
 import { questions } from "../data/questions.json";
+import quoteData from "../data/quoteData.json";
 import styled from "styled-components";
 
 // import axios from "axios";
@@ -22,6 +25,7 @@ class App extends Component {
 
   state = {
     formFinished: false,
+    price: 0,
     questionData: []
   };
 
@@ -37,7 +41,18 @@ class App extends Component {
     }
   };
 
-  answerAndNext = (item, answerIndex, questionIndex) => {
+  calculateQuote = (answer, ai, qi) => {
+    debugger;
+    var basePrice = quoteData.services[answer.value].basePrice;
+    if (true) {
+      // add additional cost if applicable
+    }
+    this.setState({ price: basePrice });
+    return basePrice;
+  };
+
+  answerAndNext = (answer, answerIndex, questionIndex) => {
+    this.calculateQuote(answer, answerIndex, questionIndex);
     let finished = true;
     // hide all questions
     let newState = this.state.questionData.map((item, i) => {
@@ -49,7 +64,7 @@ class App extends Component {
       return item;
     });
     // fill in answer
-    newState[questionIndex].userAnswer = item.value;
+    newState[questionIndex].userAnswer = answer.value;
     if (newState.length !== questionIndex + 1) {
       // show nex questiopn
       newState[questionIndex + 1].active = true;
@@ -107,13 +122,10 @@ class App extends Component {
             />
           );
         })}
-        <div>
-          {this.state.formFinished && (
-            <SubmitForm onClick={this.submitQuote}>
-              Get Instant Quote
-            </SubmitForm>
-          )}
-        </div>
+        {this.state.formFinished && (
+          <SubmitForm onClick={this.submitQuote}>Get Instant Quote</SubmitForm>
+        )}
+        {this.state.price && <Quote price={this.state.price} />}
       </div>
     ) : null;
   }

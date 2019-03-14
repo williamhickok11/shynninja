@@ -36,14 +36,14 @@ class Question extends Component {
         <H1 onClick={() => openPrevious(index)}>{text}</H1>
         <UserAnswer>{userAnswer}</UserAnswer>
         <AnswersWrapper active={active}>
-          {answers.map((d, answerIndex) => {
+          {answers.map((answer, answerIndex) => {
             // todo: make a new component for the answers
             return (
               <div
-                onClick={() => answerAndNext(d, answerIndex, index)}
+                onClick={() => answerAndNext(answer, answerIndex, index)}
                 key={answerIndex}
               >
-                <h2>{d.text}</h2>
+                <h2>{answer.text}</h2>
               </div>
             );
           })}

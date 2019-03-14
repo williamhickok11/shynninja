@@ -1,0 +1,67 @@
+{
+  "services": {
+    "washVac": {
+      "basePrice": 35,
+      "carTypes": [
+        {
+          "type": "Convertable",
+          "additionalCost": 0
+        },
+        {
+          "type": "Sedan",
+          "additionalCost": 5
+        },
+        {
+          "type": "Truck",
+          "additionalCost": 10
+        },
+        {
+          "type": "SUV",
+          "additionalCost": 15
+        }
+      ]
+    },
+    "intriorRestoration": {
+      "basePrice": 135,
+      "carTypes": [
+        {
+          "type": "Convertable",
+          "additionalCost": 0
+        },
+        {
+          "type": "Sedan",
+          "additionalCost": 10
+        },
+        {
+          "type": "Truck",
+          "additionalCost": 20
+        },
+        {
+          "type": "SUV",
+          "additionalCost": 30
+        }
+      ]
+    },
+    "fullDetail": {
+      "basePrice": 235,
+      "carTypes": [
+        {
+          "type": "Convertable",
+          "additionalCost": 0
+        },
+        {
+          "type": "Sedan",
+          "additionalCost": 20
+        },
+        {
+          "type": "Truck",
+          "additionalCost": 40
+        },
+        {
+          "type": "SUV",
+          "additionalCost": 50
+        }
+      ]
+    }
+  }
+}

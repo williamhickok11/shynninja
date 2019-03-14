@@ -7,17 +7,17 @@
         {
           "path": "go 2",
           "text": "Wash + vac",
-          "value": "final answer 2"
+          "value": "washVac"
         },
         {
           "path": "go 1",
           "text": "Interior Restoration",
-          "value": "final answer 1"
+          "value": "intriorRestoration"
         },
         {
           "path": "go 2",
           "text": "Full Detail",
-          "value": "final answer 2"
+          "value": "fullDetail"
         }
       ],
       "hasAnswer": false,
@@ -71,6 +71,11 @@
           "path": "go 3",
           "text": "X Answer 3",
           "value": "next answer 3"
+        },
+        {
+          "path": "go 2",
+          "text": "X Answer 5",
+          "value": "next answer 5"
         }
       ],
       "hasAnswer": false,
