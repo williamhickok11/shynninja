@@ -40,7 +40,9 @@ class Question extends Component {
             // todo: make a new component for the answers
             return (
               <div
-                onClick={() => answerAndNext(answer, answerIndex, index)}
+                onClick={() =>
+                  answerAndNext(answer, answerIndex, answer.value, index)
+                }
                 key={answerIndex}
               >
                 <h2>{answer.text}</h2>

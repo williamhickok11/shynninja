@@ -24,6 +24,9 @@ class App extends Component {
   };
 
   state = {
+    additionalCost: 0,
+    basePrice: 0,
+    dirtMultiplier: 1,
     formFinished: false,
     price: 0,
     questionData: []
@@ -41,18 +44,26 @@ class App extends Component {
     }
   };
 
-  calculateQuote = (answer, ai, qi) => {
-    debugger;
-    var basePrice = quoteData.services[answer.value].basePrice;
-    if (true) {
-      // add additional cost if applicable
+  calculateWashVac = (currAnswer) => {
+    return quoteData.services[currAnswer.value].basePrice;
+  };
+
+  calculateQuote = (currAnswer, answerIndex, currQuestionKey, questionIndex) => {
+    const calQuote = {
+      "washVac": () => this.calculateWashVac(currAnswer),
+      "intriorRestoration": () => {
+        return "intriorRestoration"
+      },
+      "fullDetail": () => {
+        return "fullDetail"
+      }
     }
-    this.setState({ price: basePrice });
-    return basePrice;
+    return calQuote[currQuestionKey]();
+    // this.setState({ price: quote });
   };
 
   answerAndNext = (answer, answerIndex, questionIndex) => {
-    this.calculateQuote(answer, answerIndex, questionIndex);
+    const quote = this.calculateQuote(answer, answerIndex, questionIndex);
     let finished = true;
     // hide all questions
     let newState = this.state.questionData.map((item, i) => {
@@ -64,6 +75,7 @@ class App extends Component {
       return item;
     });
     // fill in answer
+    debugger;
     newState[questionIndex].userAnswer = answer.value;
     if (newState.length !== questionIndex + 1) {
       // show nex questiopn
@@ -74,9 +86,10 @@ class App extends Component {
     }
     this.setState({
       formFinished: finished,
+      price: quote,
       questionData: newState
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   submitQuote = () => {
