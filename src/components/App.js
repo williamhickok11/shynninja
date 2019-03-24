@@ -9,6 +9,8 @@ import styled from "styled-components";
 
 // import axios from "axios";
 
+console.log(quoteData);
+
 const SubmitForm = styled.div`
   border: 2px solid black;
   justify-content: center;
@@ -27,9 +29,10 @@ class App extends Component {
     additionalCost: 0,
     basePrice: 0,
     dirtMultiplier: 1,
+    displayedQuote: 0,
     formFinished: false,
-    price: 0,
-    questionData: []
+    questionData: [],
+    service: "washVac"
   };
 
   openPrevious = i => {
@@ -44,27 +47,64 @@ class App extends Component {
     }
   };
 
-  calculateWashVac = (currAnswer) => {
-    return quoteData.services[currAnswer.value].basePrice;
+  calculateBasePrice = currAnswer => {
+    return {
+      additionalCost: this.state.additionalCost,
+      basePrice: quoteData.services[currAnswer.value].basePrice,
+      dirtMultiplier: this.state.dirtMultiplier,
+      service: currAnswer.value
+    };
   };
 
-  calculateQuote = (currAnswer, answerIndex, currQuestionKey, questionIndex) => {
-    debugger;
-    const calQuote = {
-      "washVac": () => this.calculateWashVac(currAnswer),
-      "intriorRestoration": () => {
-        return "intriorRestoration"
-      },
-      "fullDetail": () => {
-        return "fullDetail"
-      }
-    }
-    return calQuote[currQuestionKey]();
-    // this.setState({ price: quote });
+  calculateAdditionalCost = currAnswer => {
+    return {
+      additionalCost:
+        quoteData.services[this.state.service].additionalCost[currAnswer.value],
+      basePrice: this.state.basePrice,
+      dirtMultiplier: this.state.dirtMultiplier,
+      service: this.state.service
+    };
+  };
+
+  calculateMultiplier = currAnswer => {
+    return {
+      additionalCost: this.state.additionalCost,
+      basePrice: this.state.basePrice,
+      dirtMultiplier: currAnswer.value,
+      service: this.state.service
+    };
+  };
+
+  updatedQuoteData = (
+    currAnswer,
+    answerIndex,
+    currQuestionKey,
+    questionIndex
+  ) => {
+    const updateQuoteData = {
+      "0": () => this.calculateBasePrice(currAnswer),
+      "1": () => this.calculateAdditionalCost(currAnswer),
+      "2": () => this.calculateMultiplier(currAnswer)
+    };
+    const quoteData = updateQuoteData[questionIndex]();
+    console.log("quoteData", quoteData);
+    // generate quote with this equasion
+    const displayedQuote =
+      (quoteData.basePrice + quoteData.additionalCost) *
+      quoteData.dirtMultiplier;
+    return {
+      ...quoteData,
+      displayedQuote
+    };
   };
 
   answerAndNext = (answer, answerIndex, questionValue, questionIndex) => {
-    const quote = this.calculateQuote(answer, answerIndex, questionValue);
+    const quoteData = this.updatedQuoteData(
+      answer,
+      answerIndex,
+      questionValue,
+      questionIndex
+    );
     let finished = true;
     // hide all questions
     let newState = this.state.questionData.map((item, i) => {
@@ -76,7 +116,6 @@ class App extends Component {
       return item;
     });
     // fill in answer
-    debugger;
     newState[questionIndex].userAnswer = answer.value;
     if (newState.length !== questionIndex + 1) {
       // show nex questiopn
@@ -87,8 +126,8 @@ class App extends Component {
     }
     this.setState({
       formFinished: finished,
-      price: quote,
-      questionData: newState
+      questionData: newState,
+      ...quoteData
     });
     // console.log(this.state);
   };
@@ -139,7 +178,9 @@ class App extends Component {
         {this.state.formFinished && (
           <SubmitForm onClick={this.submitQuote}>Get Instant Quote</SubmitForm>
         )}
-        {this.state.price && <Quote price={this.state.price} />}
+        {this.state.displayedQuote && (
+          <Quote price={this.state.displayedQuote} />
+        )}
       </div>
     ) : null;
   }

@@ -31,22 +31,22 @@
         {
           "path": "go 1",
           "text": "Convertablie/2 door",
-          "value": "answer value 1"
+          "value": "convertable"
         },
         {
           "path": "go 2",
           "text": "Sadan",
-          "value": "answer value 2"
+          "value": "sadan"
         },
         {
           "path": "go 3",
           "text": "Crossover/Truck",
-          "value": "answer value 3"
+          "value": "truck"
         },
         {
           "path": "go 4",
           "text": "Full Size SUV/ Minvan",
-          "value": "answer value 4"
+          "value": "suv"
         }
       ],
       "hasAnswer": false,
@@ -60,22 +60,22 @@
         {
           "path": "go 1",
           "text": "X Answer 1",
-          "value": "next answer 1"
+          "value": "1"
         },
         {
           "path": "go 2",
           "text": "X Answer 2",
-          "value": "next answer 2"
+          "value": "1.2"
         },
         {
           "path": "go 3",
           "text": "X Answer 3",
-          "value": "next answer 3"
+          "value": "1.4"
         },
         {
           "path": "go 2",
           "text": "X Answer 5",
-          "value": "next answer 5"
+          "value": "1.8"
         }
       ],
       "hasAnswer": false,
