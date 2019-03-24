@@ -49,6 +49,7 @@ class App extends Component {
   };
 
   calculateQuote = (currAnswer, answerIndex, currQuestionKey, questionIndex) => {
+    debugger;
     const calQuote = {
       "washVac": () => this.calculateWashVac(currAnswer),
       "intriorRestoration": () => {
@@ -62,8 +63,8 @@ class App extends Component {
     // this.setState({ price: quote });
   };
 
-  answerAndNext = (answer, answerIndex, questionIndex) => {
-    const quote = this.calculateQuote(answer, answerIndex, questionIndex);
+  answerAndNext = (answer, answerIndex, questionValue, questionIndex) => {
+    const quote = this.calculateQuote(answer, answerIndex, questionValue);
     let finished = true;
     // hide all questions
     let newState = this.state.questionData.map((item, i) => {
